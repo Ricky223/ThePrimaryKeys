@@ -4,6 +4,16 @@
 {% block content %}
 <div style="text-align: center" xmlns="http://www.w3.org/1999/html">
     <h1>Hi, {{ current_user.username }}!</h1>
-    <h1>A Simple Test</h1>
+
+<!--    TODO: implement submit later-->
+    <label for="cars">Choose a Team:</label>
+    <select name="cars" id="cars">
+        {% for name in team %}
+        <option value="{{ name }}">{{ name }}</option>
+        {% endfor %}
+    </select>
+<!--    <h4>-->
+<!--        selectObject.selectedIndex-->
+<!--    </h4>-->
 </div>
 {% endblock %}

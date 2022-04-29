@@ -51,7 +51,9 @@ def logout():
 @app.route('/enter')
 @login_required
 def enter():
-    return render_template('enterTeamName.html')
+    Pokemons = ["Pikachu", "Charizard", "Squirtle", "Jigglypuff",
+                "Bulbasaur", "Gengar", "Charmander", "Mew", "Lugia", "Gyarados"]
+    return render_template('enterTeamName.html', team=Pokemons)
 
 
 @app.route('/register', methods=['GET', 'POST'])
