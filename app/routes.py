@@ -12,7 +12,6 @@ from app.player import Player
 import pymysql
 
 
-
 @app.route('/')
 @app.route('/home')
 def home():
@@ -115,16 +114,7 @@ def table():
             cur.execute(sqlGetPlayTime, tuplePlayTime)
             playTimeResults = cur.fetchall()
             for row1 in playTimeResults:
-                data.append(
-                    Player(pID, row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9], row[10],
-                           row[11]))
-
-        # tuple1 = (teamID, session.get('year',None))
-        # cur.execute(sql,tuple1)
-        # results = cur.fetchall()
-
-        # for row in results:
-        #     data.append(Player(row[0],row[1]))
+                data.append(Player(pID, row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9], row[10], row[11]))
 
     positions = ['Pitcher', 'Catcher', 'First Base Man', 'Second Base Man', 'Third Base Man', 'Short Stop',
                  'Left Fielder'
