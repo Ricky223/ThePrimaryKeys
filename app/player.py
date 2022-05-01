@@ -1,5 +1,6 @@
 from typing import NamedTuple
 
+
 # select G_p, G_c, G_1b, G_2b, G_3b, G_ss, G_lf, G_cf, G_of, G_dh, G_ph, G_pr
 # 'Pitcher', 'Catcher', 'First Base Man', 'Second Base Man', 'Third Base Man', 'Short Stop',
 #                  'Left Fielder'
