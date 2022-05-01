@@ -19,8 +19,9 @@
     <table class="center">
         <thead>
       <tr>
-        <th>Player Name</th>
-        <th>Number of Games Played</th>
+        <th>Position</th>
+        {% for position in values %}
+        <th>{{ player.name }}</th>
       </tr>
     </thead>
     <tbody>

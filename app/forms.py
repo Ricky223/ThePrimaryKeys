@@ -1,10 +1,10 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField, SelectField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, SelectField, HiddenField
 from wtforms.validators import ValidationError, DataRequired, Email, EqualTo
-from flask import session
-from flask_session import Session
 import csi3335sp2022
-from app.models import User
+from app.models import User, teamsTable
+from flask_login import current_user, login_user
+from flask import session
 
 import pymysql
 
@@ -56,25 +56,27 @@ class EnterTeamName(FlaskForm):
     team = SelectField('Team Name:', choices=data)
     submit = SubmitField('Submit')
 
+def createEnterTeamYearForm(viewTeamName, viewUsername):
+    class EnterTeamYear(FlaskForm):
+        usernameHidden = HiddenField('username')
+        con = pymysql.connect(host=csi3335sp2022.mysql["location"], user=csi3335sp2022.mysql["user"],
+                              password=csi3335sp2022.mysql["password"],
+                              database=csi3335sp2022.mysql["db"])
 
-class EnterTeamYear(FlaskForm):
+        data = []
+        with con:
+            cur = con.cursor()
+            currUser = User.query.filter_by(username = viewUsername).first()
+            team = teamsTable.query.filter_by(user_id = currUser.id).order_by(teamsTable.timestamp.desc()).first()
+            sql = """select distinct yearID from team where name = %s"""
+            cur.execute(sql, team.team_choose)
+            results = cur.fetchall()
+            for row in results:
+                data.append(row[0])
 
-    # con = pymysql.connect(host=csi3335sp2022.mysql["location"], user=csi3335sp2022.mysql["user"],
-    #                       password=csi3335sp2022.mysql["password"],
-    #                       database=csi3335sp2022.mysql["db"])
-    #
-    # data = []
-    # with con:
-    #     cur = con.cursor()
-    #
-    #     sql = """select distinct yearID from team where name = %s"""
-    #     cur.execute(sql, teamRead)
-    #     results = cur.fetchall()
-    #     for row in results:
-    #         data.append(row[0])
-
-    Years = ["1999", "2000", "2001", "2002", "2003"]
-    year = SelectField('Year', choices=Years)
-    submit = SubmitField('Submit')
+        Years = ["1999", "2000", "2001", "2002", "2003"]
+        year = SelectField('Year', choices=data)
+        submit = SubmitField('Submit')
+    return EnterTeamYear
 
 

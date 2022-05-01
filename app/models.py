@@ -9,7 +9,7 @@ class User(UserMixin, db.Model):
     username = db.Column(db.String(64), index=True, unique=True)
     email = db.Column(db.String(120), index=True, unique=True)
     password_hash = db.Column(db.String(128))
-    posts = db.relationship('Post', backref='author', lazy='dynamic')
+    teams = db.relationship('teamsTable', backref='usert', lazy='dynamic')
 
     def __repr__(self):
         return '<User {}>'.format(self.username)
@@ -29,7 +29,7 @@ class teamsTable(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
     def __repr__(self):
-        return '<Post {}>'.format(self.body)
+        return '<Team {}>'.format(self.team_choose,self.year_choose)
 
 
 @login.user_loader
