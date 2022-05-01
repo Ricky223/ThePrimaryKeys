@@ -21,10 +21,10 @@ class User(UserMixin, db.Model):
         return check_password_hash(self.password_hash, password)
 
 
-# Don't really need this
-class Post(db.Model):
+class teamsTable(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    body = db.Column(db.String(140))
+    team_choose = db.Column(db.String(256))
+    year_choose = db.Column(db.Integer)
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
