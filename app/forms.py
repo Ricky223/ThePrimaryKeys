@@ -4,6 +4,7 @@ from wtforms.validators import ValidationError, DataRequired, Email, EqualTo
 from app.models import User
 
 
+
 class LoginForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired()])
@@ -38,3 +39,9 @@ class EnterTeamName(FlaskForm):
 
     team = SelectField('Team Name:', choices=Pokemons)
     submit = SubmitField('Submit')
+
+
+class EnterTeamYear(FlaskForm):
+    Years = ["1999", "2000", "2001", "2002", "2003"]
+    year = SelectField('Year', choices=Years)
+    sumbit = SubmitField('Submit')
