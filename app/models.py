@@ -1,7 +1,9 @@
 from datetime import datetime
-from app import db, login
+from app import db, login, admin
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_login import UserMixin
+from flask_login import UserMixin, current_user
+from flask_admin.contrib.sqla import ModelView
+
 
 
 class User(UserMixin, db.Model):
@@ -31,6 +33,14 @@ class teamsTable(db.Model):
     def __repr__(self):
         return '<Team {}>'.format(self.team_choose,self.year_choose)
 
+
+class adminView(ModelView):
+    def is_accessible(self):
+        return current_user.username == "Admin"
+
+
+admin.add_view(adminView(User, db.session))
+admin.add_view(adminView(teamsTable, db.session))
 
 @login.user_loader
 def load_user(id):
