@@ -1,19 +1,17 @@
-import sys
-
 import csi3335sp2022
 from app import app
 from flask import render_template, flash, redirect, url_for, request, session
-from flask_session import Session
 from app.forms import LoginForm, EnterTeamName, EnterTeamYear
 from flask_login import current_user, login_user
-from app.models import User
+from app.models import User, teamsTable
 from flask_login import logout_user, login_required
 from werkzeug.urls import url_parse
 from app import db
 from app.forms import RegistrationForm
 from app.player import Player
 import pymysql
-GLOBAL_TEAM = ""
+
+
 @app.route('/')
 @app.route('/home')
 def home():
@@ -60,6 +58,10 @@ def enter():
     if form.validate_on_submit():
         print(form.team.data, flush=True)
         session['teamName'] = form.team.data
+        tableDB = teamsTable(team_choose=form.team.data, user_id=current_user)
+        db.session.add(tableDB)
+        # TODO: Not Working
+        db.session.commit()
         return redirect(url_for('enterYear'))
     return render_template('enterTeamName.html', form=form)
 
@@ -86,10 +88,10 @@ def table():
     with con:
         cur = con.cursor()
         sql1 = """select distinct teamID from team where name = %s"""
-        cur.execute(sql1,session.get('teamName',None))
+        cur.execute(sql1,session.get('teamName', None))
         teamID = cur.fetchone()
         sql = """select concat(p.nameFirst, ' ', p.nameLast) , a.Gs from appearances a natural join people p where a.teamID = %s and yearID = %s;"""
-        tuple1 = (teamID, session.get('year',None))
+        tuple1 = (teamID, session.get('year', None))
         cur.execute(sql,tuple1)
         results = cur.fetchall()
 
