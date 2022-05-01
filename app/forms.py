@@ -1,7 +1,12 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField, SelectMultipleField, SelectField
 from wtforms.validators import ValidationError, DataRequired, Email, EqualTo
+from flask import session
+from flask_session import Session
+import csi3335sp2022
 from app.models import User
+
+import pymysql
 
 
 class LoginForm(FlaskForm):
@@ -33,14 +38,41 @@ class RegistrationForm(FlaskForm):
 
 
 class EnterTeamName(FlaskForm):
-    Pokemons = ["Pikachu", "Charizard", "Squirtle", "Jigglypuff",
-                "Bulbasaur", "Gengar", "Charmander", "Mew", "Lugia", "Gyarados"]
+    con = pymysql.connect(host=csi3335sp2022.mysql["location"], user=csi3335sp2022.mysql["user"],
+                          password=csi3335sp2022.mysql["password"],
+                          database=csi3335sp2022.mysql["db"])
+    data = []
+    with con:
+        cur = con.cursor()
+        sql = """select distinct name from team"""
+        cur.execute(sql)
+        results = cur.fetchall()
+        for row in results:
+            data.append(row[0])
 
-    team = SelectField('Team Name:', choices=Pokemons)
+    # Pokemons = ["Pikachu", "Charizard", "Squirtle", "Jigglypuff",
+    #             "Bulbasaur", "Gengar", "Charmander", "Mew", "Lugia", "Gyarados"]
+
+    team = SelectField('Team Name:', choices=data)
     submit = SubmitField('Submit')
 
 
 class EnterTeamYear(FlaskForm):
+
+    # con = pymysql.connect(host=csi3335sp2022.mysql["location"], user=csi3335sp2022.mysql["user"],
+    #                       password=csi3335sp2022.mysql["password"],
+    #                       database=csi3335sp2022.mysql["db"])
+    #
+    # data = []
+    # with con:
+    #     cur = con.cursor()
+    #
+    #     sql = """select distinct yearID from team where name = %s"""
+    #     cur.execute(sql, teamRead)
+    #     results = cur.fetchall()
+    #     for row in results:
+    #         data.append(row[0])
+
     Years = ["1999", "2000", "2001", "2002", "2003"]
     year = SelectField('Year', choices=Years)
     submit = SubmitField('Submit')

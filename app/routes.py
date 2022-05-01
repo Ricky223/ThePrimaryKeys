@@ -1,4 +1,6 @@
 import sys
+
+import csi3335sp2022
 from app import app
 from flask import render_template, flash, redirect, url_for, request, session
 from flask_session import Session
@@ -10,8 +12,8 @@ from werkzeug.urls import url_parse
 from app import db
 from app.forms import RegistrationForm
 from app.player import Player
-
-
+import pymysql
+GLOBAL_TEAM = ""
 @app.route('/')
 @app.route('/home')
 def home():
@@ -78,11 +80,28 @@ def enterYear():
 @app.route('/tableplayer')
 @login_required
 def table():
-    values = [Player('Ricky', 12), Player('Varun', 13)]
+    con = pymysql.connect(host=csi3335sp2022.mysql["location"], user=csi3335sp2022.mysql["user"], password=csi3335sp2022.mysql["password"],
+                          database=csi3335sp2022.mysql["db"])
+    data = []
+    with con:
+        cur = con.cursor()
+        sql1 = """select distinct teamID from team where name = %s"""
+        cur.execute(sql1,session.get('teamName',None))
+        teamID = cur.fetchone()
+        sql = """select concat(p.nameFirst, ' ', p.nameLast) , a.Gs from appearances a natural join people p where a.teamID = %s and yearID = %s;"""
+        tuple1 = (teamID, session.get('year',None))
+        cur.execute(sql,tuple1)
+        results = cur.fetchall()
 
+        for row in results:
+            data.append(Player(row[0],row[1]))
+
+
+
+    values = [Player('Ricky', 12), Player('Varun', 13)]
     team = session.get('teamName', None)
     year = session.get('year', None)
-    return render_template('playerTable.html', values=values, team=team, year=year)
+    return render_template('playerTable.html', values=data, team=team, year=year)
 
 
 @app.route('/register', methods=['GET', 'POST'])
