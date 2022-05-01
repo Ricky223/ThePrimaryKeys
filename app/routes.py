@@ -69,6 +69,7 @@ def enter():
 @app.route('/enteryear', methods=['GET', 'POST'])
 @login_required
 def enterYear():
+    # hello
     creator = createEnterTeamYearForm(session['teamName'], current_user.username)
     form = creator()
     form.usernameHidden = current_user.username
