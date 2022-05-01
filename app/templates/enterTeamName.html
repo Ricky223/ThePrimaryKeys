@@ -1,19 +1,15 @@
 {% extends "base.html" %}
 
-<!--TODO: This will be the actual web page that user will be using-->
+<!--This is to let user choose the team-->
 {% block content %}
 <div style="text-align: center" xmlns="http://www.w3.org/1999/html">
     <h1>Hi, {{ current_user.username }}!</h1>
 
-<!--    TODO: implement submit later-->
-    <label for="cars">Choose a Team:</label>
-    <select name="cars" id="cars">
-        {% for name in team %}
-        <option value="{{ name }}">{{ name }}</option>
-        {% endfor %}
-    </select>
-<!--    <h4>-->
-<!--        selectObject.selectedIndex-->
-<!--    </h4>-->
+    <form method="POST" action="" novalidate>
+        <p>{{ form.team.label }}{{ form.team() }}</p>
+
+        <p>{{ form.submit() }}</p>
+    </form>
 </div>
+
 {% endblock %}

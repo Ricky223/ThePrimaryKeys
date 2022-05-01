@@ -1,6 +1,8 @@
+import sys
+
 from app import app
 from flask import render_template, flash, redirect, url_for, request
-from app.forms import LoginForm
+from app.forms import LoginForm, EnterTeamName
 from flask_login import current_user, login_user
 from app.models import User
 from flask_login import logout_user, login_required
@@ -48,12 +50,22 @@ def logout():
 
 # TODO: index waited to be implement
 @app.route('/')
-@app.route('/enter')
+@app.route('/enter', methods=['GET', 'POST'])
 @login_required
 def enter():
-    Pokemons = ["Pikachu", "Charizard", "Squirtle", "Jigglypuff",
-                "Bulbasaur", "Gengar", "Charmander", "Mew", "Lugia", "Gyarados"]
-    return render_template('enterTeamName.html', team=Pokemons)
+    form = EnterTeamName()
+    if form.validate_on_submit():
+        print(form.TeamName.data, flush=True)
+        return redirect(url_for('login'))
+    return render_template('enterTeamName.html', form=form)
+
+
+# @app.route('/submit-form', methods=['POST'])
+# def submitForm():
+#     selectValue = request.form.get('select1')
+#     sys.stdout.write(str(selectValue))
+#     print(selectValue)
+#     return str(selectValue)
 
 
 @app.route('/register', methods=['GET', 'POST'])
