@@ -16,22 +16,32 @@
     <h1>Hi, {{ current_user.username }}</h1>
     <h2>You Choose Team: {{ team }} and Year: {{ year }}</h2>
 
+    {% for position in values %}
     <table class="center">
+        <caption>{{ values.name }}</caption>
         <thead>
-      <tr>
-        <th>Position</th>
-        {% for position in values %}
-        <th>{{ player.name }}</th>
-      </tr>
-    </thead>
-    <tbody>
-    {% for player in values %}
+            <tr>
+                {% for pos in positions %}
+                <th>{{ pos }}</th>
+            </tr>
+        </thead>
+        <tbody>
         <tr>
-          <td>{{ player.name }}</td>
-          <td>{{ player.nog }}</td>
+            <td>{{ values.pitched }}</td>
+            <td>{{ values.catcher }}</td>
+            <td>{{ values.firstBase }}</td>
+            <td>{{ values.secondBase }}</td>
+            <td>{{ values.thirdBase }}</td>
+            <td>{{ values.shortStop }}</td>
+            <td>{{ values.leftField }}</td>
+            <td>{{ values.centerField }}</td>
+            <td>{{ values.outField }}</td>
+            <td>{{ values.designatedHitter }}</td>
+            <td>{{ values.pinchHitter }}</td>
+            <td>{{ values.pinchRunner }}</td>
         </tr>
-    {% endfor %}
     </table>
+    {% endfor %}
 
 </div>
 {% endblock %}}
