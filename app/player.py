@@ -15,7 +15,6 @@ class Player(NamedTuple):
     shortStop: int
     leftField: int
     centerField: int
-    rightField: int
     outField: int
     designatedHitter: int
     pinchHitter: int

@@ -23,6 +23,7 @@
             <tr>
                 {% for pos in positions %}
                 <th>{{ pos }}</th>
+                {% endfor %}
             </tr>
         </thead>
         <tbody>
@@ -34,7 +35,6 @@
             <td>{{ values.thirdBase }}</td>
             <td>{{ values.shortStop }}</td>
             <td>{{ values.leftField }}</td>
-            <td>{{ values.rightField }}</td>
             <td>{{ values.centerField }}</td>
             <td>{{ values.outField }}</td>
             <td>{{ values.designatedHitter }}</td>
