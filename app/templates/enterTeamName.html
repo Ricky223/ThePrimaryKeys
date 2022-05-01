@@ -6,6 +6,7 @@
     <h1>Hi, {{ current_user.username }}!</h1>
 
     <form method="POST" action="" novalidate>
+        {{ form.csrf_token }}
         <p>{{ form.team.label }}{{ form.team() }}</p>
 
         <p>{{ form.submit() }}</p>

@@ -55,7 +55,7 @@ def logout():
 def enter():
     form = EnterTeamName()
     if form.validate_on_submit():
-        print(form.TeamName.data, flush=True)
+        print(form.team.data, flush=True)
         return redirect(url_for('login'))
     return render_template('enterTeamName.html', form=form)
 
