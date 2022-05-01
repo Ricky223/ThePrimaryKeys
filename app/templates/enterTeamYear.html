@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div style="text-align: center" xmlns="http://www.w3.org/1999/html">
+    <h1>Hi, {{ current_user.username }}</h1>
+    <h2>You Choose Team: {{ team }}</h2>
+
+    <form method="post", action="" novalidate>
+        {{ form.csrf_token }}
+        <p>{{ form.year.label }}{{ form.year }}</p>
+
+        <p>{{ form.submit() }}</p>
+    </form>
+
+</div>
+
+{% endblock %}}

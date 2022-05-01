@@ -44,4 +44,4 @@ class EnterTeamName(FlaskForm):
 class EnterTeamYear(FlaskForm):
     Years = ["1999", "2000", "2001", "2002", "2003"]
     year = SelectField('Year', choices=Years)
-    sumbit = SubmitField('Submit')
+    submit = SubmitField('Submit')

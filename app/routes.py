@@ -1,8 +1,8 @@
 import sys
-
 from app import app
-from flask import render_template, flash, redirect, url_for, request
-from app.forms import LoginForm, EnterTeamName
+from flask import render_template, flash, redirect, url_for, request, session
+from flask_session import Session
+from app.forms import LoginForm, EnterTeamName, EnterTeamYear
 from flask_login import current_user, login_user
 from app.models import User
 from flask_login import logout_user, login_required
@@ -56,9 +56,21 @@ def enter():
     form = EnterTeamName()
     if form.validate_on_submit():
         print(form.team.data, flush=True)
-        return redirect(url_for('login'))
+        session['teamName'] = form.team.data
+        return redirect(url_for('enterYear'))
     return render_template('enterTeamName.html', form=form)
 
+
+@app.route('/')
+@app.route('/enteryear', methods=['GET', 'POST'])
+@login_required
+def enterYear():
+    form = EnterTeamYear()
+    team = session.get('teamName', None)
+    if form.validate_on_submit():
+        print(form.year.data, flush=True)
+        return redirect(url_for('home'))
+    return render_template('enterTeamYear.html', form=form, team=team)
 
 # @app.route('/submit-form', methods=['POST'])
 # def submitForm():
