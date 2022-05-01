@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div style="text-align: center" xmlns="http://www.w3.org/1999/html">
+    <h1>Hi, {{ current_user.username }}</h1>
+    <h2>You Choose Team: {{ team }} and Year: {{ year }}</h2>
+
+    <thead>
+      <tr>
+        <th>Player Name</th>
+        <th>Number of Games Played</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for player in values %}}
+        <tr>
+          <td>{{ player.name }}</td>
+          <td>{{ player.nog }}</td>
+        </tr>
+    {% endfor %}
+</div>
+{% endblock %}}

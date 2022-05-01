@@ -69,15 +69,18 @@ def enterYear():
     team = session.get('teamName', None)
     if form.validate_on_submit():
         print(form.year.data, flush=True)
+        session['year'] = form.year.data
         return redirect(url_for('home'))
     return render_template('enterTeamYear.html', form=form, team=team)
 
-# @app.route('/submit-form', methods=['POST'])
-# def submitForm():
-#     selectValue = request.form.get('select1')
-#     sys.stdout.write(str(selectValue))
-#     print(selectValue)
-#     return str(selectValue)
+
+@app.route('tableplayer')
+@login_required
+def table():
+    values = []
+    team = session.get('teamName', None)
+    year = session.get('year', None)
+    return render_template('playerTable.html', values=values, team=team, year=year)
 
 
 @app.route('/register', methods=['GET', 'POST'])
