@@ -9,6 +9,7 @@ from flask_login import logout_user, login_required
 from werkzeug.urls import url_parse
 from app import db
 from app.forms import RegistrationForm
+from app.player import Player
 
 
 @app.route('/')
@@ -70,14 +71,15 @@ def enterYear():
     if form.validate_on_submit():
         print(form.year.data, flush=True)
         session['year'] = form.year.data
-        return redirect(url_for('home'))
+        return redirect(url_for('table'))
     return render_template('enterTeamYear.html', form=form, team=team)
 
 
-@app.route('tableplayer')
+@app.route('/tableplayer')
 @login_required
 def table():
-    values = []
+    values = [Player('Ricky', 12), Player('Varun', 13)]
+
     team = session.get('teamName', None)
     year = session.get('year', None)
     return render_template('playerTable.html', values=values, team=team, year=year)
