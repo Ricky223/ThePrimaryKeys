@@ -5,10 +5,15 @@
     table, th, td {
         border: 1px solid black;
         border-collapse: collapse;
+        padding: 5px;
+        text-align: center;
     }
     .center {
         margin-left: auto;
-    margin-right: auto;
+        margin-right: auto;
+    }
+    caption {
+        font-weight: bold;
     }
 </style>
 
@@ -16,32 +21,32 @@
     <h1>Hi, {{ current_user.username }}</h1>
     <h2>You Choose Team: {{ team }} and Year: {{ year }}</h2>
 
-    {% for position in values %}
-    <table class="center">
-        <caption>{{ values.name }}</caption>
-        <thead>
-            <tr>
-                {% for pos in positions %}
-                <th>{{ pos }}</th>
-                {% endfor %}
-            </tr>
-        </thead>
-        <tbody>
+    {% for player in values %}
+    <table class="center" style="width:100%">
+        <caption>{{ player.name }}</caption>
         <tr>
-            <td>{{ values.pitched }}</td>
-            <td>{{ values.catcher }}</td>
-            <td>{{ values.firstBase }}</td>
-            <td>{{ values.secondBase }}</td>
-            <td>{{ values.thirdBase }}</td>
-            <td>{{ values.shortStop }}</td>
-            <td>{{ values.leftField }}</td>
-            <td>{{ values.centerField }}</td>
-            <td>{{ values.outField }}</td>
-            <td>{{ values.designatedHitter }}</td>
-            <td>{{ values.pinchHitter }}</td>
-            <td>{{ values.pinchRunner }}</td>
+            <th></th>
+            {% for pos in positions %}
+            <th>{{ pos }}</th>
+            {% endfor %}
         </tr>
+            <tr>
+                <td><b>Games</b></td>
+                <td>{{ player.pitched }}</td>
+                <td>{{ player.catcher }}</td>
+                <td>{{ player.firstBase }}</td>
+                <td>{{ player.secondBase }}</td>
+                <td>{{ player.thirdBase }}</td>
+                <td>{{ player.shortStop }}</td>
+                <td>{{ player.leftField }}</td>
+                <td>{{ player.centerField }}</td>
+                <td>{{ player.outField }}</td>
+                <td>{{ player.designatedHitter }}</td>
+                <td>{{ player.pinchHitter }}</td>
+                <td>{{ player.pinchRunner }}</td>
+            </tr>
     </table>
+    <p></p>
     {% endfor %}
 
 </div>

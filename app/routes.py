@@ -110,14 +110,15 @@ def table():
         for row in resultIDs:
             cur.execute(sqlgetPlayerName, row)
             pID = cur.fetchone()
+            pID = pID[0]
             tuplePlayTime = (teamID, session['year'], row)
             cur.execute(sqlGetPlayTime, tuplePlayTime)
             playTimeResults = cur.fetchall()
             for row1 in playTimeResults:
-                data.append(Player(pID, row1[0], row1[1], row1[2], row1[3], row1[4], row1[5], row1[6], row1[7], row1[8], row1[9], row1[10], row1[11]))
+                data.append(Player(str(pID), row1[0], row1[1], row1[2], row1[3], row1[4], row1[5], row1[6], row1[7], row1[8], row1[9], row1[10], row1[11]))
 
     positions = ['Pitcher', 'Catcher', 'First Base Man', 'Second Base Man', 'Third Base Man', 'Short Stop',
-                 'Left Fielder', 'Center Fielder', 'OutFielder', 'Designated Hitter', 'Pinch Hitter', 'Pinch Runner']
+                 'Left Fielder', 'Center Fielder', 'Out Fielder', 'Designated Hitter', 'Pinch Hitter', 'Pinch Runner']
     team = session.get('teamName', None)
     year = session.get('year', None)
     return render_template('playerTable.html', values=data, team=team, year=year, positions=positions)

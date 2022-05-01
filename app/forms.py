@@ -50,11 +50,9 @@ class EnterTeamName(FlaskForm):
         for row in results:
             data.append(row[0])
 
-    # Pokemons = ["Pikachu", "Charizard", "Squirtle", "Jigglypuff",
-    #             "Bulbasaur", "Gengar", "Charmander", "Mew", "Lugia", "Gyarados"]
-
     team = SelectField('Team Name:', choices=data)
     submit = SubmitField('Submit')
+
 
 def createEnterTeamYearForm(viewTeamName, viewUsername):
     class EnterTeamYear(FlaskForm):
@@ -75,8 +73,6 @@ def createEnterTeamYearForm(viewTeamName, viewUsername):
                 data.append(row[0])
 
         Years = ["1999", "2000", "2001", "2002", "2003"]
-        year = SelectField('Year', choices=data)
+        year = SelectField('Year:', choices=data)
         submit = SubmitField('Submit')
     return EnterTeamYear
-
-
