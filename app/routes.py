@@ -11,7 +11,6 @@ from app.forms import RegistrationForm
 from app.player import Player
 import pymysql
 
-GLOBAL_TEAM = ""
 
 
 @app.route('/')
@@ -108,13 +107,16 @@ def table():
         resultIDs = cur.fetchall()
 
         sqlGetPlayTime = """select G_p, G_c, G_1b, G_2b, G_3b, G_ss, G_lf, G_cf, G_of, G_dh, G_ph, G_pr from appearances where teamID = %s and yearID = %s and playerID = %s"""
+        sqlgetPlayerName = """select concat(nameFirst, ' ', nameLast) from people where playerID = %s"""
         for row in resultIDs:
+            cur.execute(sqlgetPlayerName, row)
+            pID = cur.fetchone()
             tuplePlayTime = (teamID, session['year'], row)
             cur.execute(sqlGetPlayTime, tuplePlayTime)
             playTimeResults = cur.fetchall()
             for row1 in playTimeResults:
                 data.append(
-                    Player(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9], row[10],
+                    Player(pID, row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9], row[10],
                            row[11]))
 
         # tuple1 = (teamID, session.get('year',None))
