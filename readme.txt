@@ -1,3 +1,6 @@
+Team: The Primary Keys
+Members: Josh McKone, Ruiqi Zhao, Varun Apte
+
 Welcome to the Primary Keys Flask Application
 START:
 After opening the project directory, please ensure that you install the following packages
@@ -52,3 +55,34 @@ USING THE ADMIN PAGE:
 -Each user can have multiple queries.
 -The usert column represents the user that made the query.
 -The Team Choose and Year Choose columns represent the team and year queried respectively
+
+
+-------------------------------
+
+Database Information:
+
+Packages Used:
+numpy
+pymysql
+pandas
+
+New Hall of Fame data taken from:
+https://www.baseball-reference.com/awards/hof.shtml
+
+For full list of indexes added, see changes.sql
+
+Additional changes made to database:
+-All tables that previously had "ID" have had that column replaced with a more fitting column name to allow for Natural Joins easier
+	I.E. allstarfull "ID" -> "as_ID"
+	For the full list of Column changes, see changes.sql
+-Added G_rf to appearances table
+-Changed fieldingpost "f_WP" column to "f_TP" to match the data from the csv file
+-Dropped the "f_ZR" column in fieldingpost table to match the data from the csv file
+-Dropped awards table due to missing data, and missing csv files
+-Dropped awardsshare table due to missing data, and missing csv files
+-Dropped school table due to missing data, and missing csv files
+-Dropped salary table due to missing data, and missing csv files
+
+
+Additional Notes:
+changes.sql - Contains all of the individual sql changes for an existing database. Schema.sql is the one intended for use.
