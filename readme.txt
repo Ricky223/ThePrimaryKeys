@@ -48,7 +48,7 @@ USING THE ADMIN PAGE:
 -You will then find 2 relevant tabs: Users and teams table
 -If you click on the Users tab you will be able to see all the current Users, you can also add Users from this page.
 -If you click on the teams Table you will find all of the queries made by users. 
--Each row in the teams table represents one queries that is connected to one User.
+-Each row in the teams table represents one query that is connected to one User.
 -Each user can have multiple queries.
 -The usert column represents the user that made the query.
 -The Team Choose and Year Choose columns represent the team and year queried respectively
